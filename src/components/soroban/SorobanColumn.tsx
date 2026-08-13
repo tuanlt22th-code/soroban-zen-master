@@ -6,7 +6,7 @@ interface SorobanColumnProps {
   index: number;
   total: number;
   state: ColumnState;
-  disabled?: boolean;
+  disabled?: boolean | undefined;
   onChange: (index: number, next: ColumnState) => void;
 }
 

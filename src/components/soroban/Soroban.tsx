@@ -5,7 +5,7 @@ import { sorobanToNumber, type ColumnState, type SorobanState } from "@/lib/soro
 interface SorobanProps {
   state: SorobanState;
   onChange: (next: SorobanState) => void;
-  disabled?: boolean;
+  disabled?: boolean | undefined;
 }
 
 export function Soroban({ state, onChange, disabled }: SorobanProps) {
