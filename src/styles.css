@@ -200,15 +200,15 @@
 }
 
 .soroban-frame {
-  --bead-w: clamp(20px, 7vw, 48px);
-  --bead-h: clamp(13px, 4.4vw, 30px);
-  --col-gap: clamp(3px, 1.1vw, 10px);
+  --bead-w: clamp(19px, 6.2vw, 48px);
+  --bead-h: clamp(13px, 4.2vw, 30px);
+  --col-gap: clamp(3px, 0.9vw, 10px);
   margin: 0 auto;
   width: fit-content;
   min-width: min(100%, 260px);
   background: linear-gradient(180deg, var(--frame), var(--frame-edge));
   border-radius: clamp(10px, 3vw, 20px);
-  padding: clamp(8px, 2.4vw, 16px);
+  padding: clamp(7px, 2vw, 16px);
   box-shadow:
     0 10px 24px -12px oklch(0 0 0 / 0.5),
     inset 0 1px 0 oklch(1 0 0 / 0.08);
@@ -220,7 +220,7 @@
   justify-content: center;
   background: var(--board);
   border-radius: clamp(4px, 1.2vw, 8px);
-  padding: clamp(4px, 1.4vw, 10px) clamp(4px, 1.6vw, 12px);
+  padding: clamp(4px, 1.4vw, 10px) clamp(4px, 1.2vw, 12px);
 }
 
 .soroban-column {
@@ -253,7 +253,7 @@
 .soroban-bar {
   position: relative;
   height: clamp(7px, 2.2vw, 14px);
-  margin: clamp(2px, 0.6vw, 5px) calc(-1 * clamp(4px, 1.6vw, 12px));
+  margin: clamp(2px, 0.6vw, 5px) calc(-1 * clamp(4px, 1.2vw, 12px));
   background: linear-gradient(180deg, var(--frame), var(--frame-edge));
 }
 

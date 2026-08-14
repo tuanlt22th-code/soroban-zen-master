@@ -10,33 +10,79 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AoTinhRouteImport } from './routes/ao-tinh'
+import { Route as BieuDienSoRouteImport } from './routes/bieu-dien-so'
+import { Route as BoBaiTapRouteImport } from './routes/bo-bai-tap'
+import { Route as TinhToanRouteImport } from './routes/tinh-toan'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AoTinhRoute = AoTinhRouteImport.update({
+  id: '/ao-tinh',
+  path: '/ao-tinh',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BieuDienSoRoute = BieuDienSoRouteImport.update({
+  id: '/bieu-dien-so',
+  path: '/bieu-dien-so',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BoBaiTapRoute = BoBaiTapRouteImport.update({
+  id: '/bo-bai-tap',
+  path: '/bo-bai-tap',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TinhToanRoute = TinhToanRouteImport.update({
+  id: '/tinh-toan',
+  path: '/tinh-toan',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ao-tinh': typeof AoTinhRoute
+  '/bieu-dien-so': typeof BieuDienSoRoute
+  '/bo-bai-tap': typeof BoBaiTapRoute
+  '/tinh-toan': typeof TinhToanRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ao-tinh': typeof AoTinhRoute
+  '/bieu-dien-so': typeof BieuDienSoRoute
+  '/bo-bai-tap': typeof BoBaiTapRoute
+  '/tinh-toan': typeof TinhToanRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ao-tinh': typeof AoTinhRoute
+  '/bieu-dien-so': typeof BieuDienSoRoute
+  '/bo-bai-tap': typeof BoBaiTapRoute
+  '/tinh-toan': typeof TinhToanRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/ao-tinh' | '/bieu-dien-so' | '/bo-bai-tap' | '/tinh-toan'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/ao-tinh' | '/bieu-dien-so' | '/bo-bai-tap' | '/tinh-toan'
+  id:
+    | '__root__'
+    | '/'
+    | '/ao-tinh'
+    | '/bieu-dien-so'
+    | '/bo-bai-tap'
+    | '/tinh-toan'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AoTinhRoute: typeof AoTinhRoute
+  BieuDienSoRoute: typeof BieuDienSoRoute
+  BoBaiTapRoute: typeof BoBaiTapRoute
+  TinhToanRoute: typeof TinhToanRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +94,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ao-tinh': {
+      id: '/ao-tinh'
+      path: '/ao-tinh'
+      fullPath: '/ao-tinh'
+      preLoaderRoute: typeof AoTinhRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bieu-dien-so': {
+      id: '/bieu-dien-so'
+      path: '/bieu-dien-so'
+      fullPath: '/bieu-dien-so'
+      preLoaderRoute: typeof BieuDienSoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bo-bai-tap': {
+      id: '/bo-bai-tap'
+      path: '/bo-bai-tap'
+      fullPath: '/bo-bai-tap'
+      preLoaderRoute: typeof BoBaiTapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tinh-toan': {
+      id: '/tinh-toan'
+      path: '/tinh-toan'
+      fullPath: '/tinh-toan'
+      preLoaderRoute: typeof TinhToanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AoTinhRoute: AoTinhRoute,
+  BieuDienSoRoute: BieuDienSoRoute,
+  BoBaiTapRoute: BoBaiTapRoute,
+  TinhToanRoute: TinhToanRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
