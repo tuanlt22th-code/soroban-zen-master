@@ -39,11 +39,11 @@ export function ExerciseLibrary() {
       setFatal("Không có dòng bài tập hợp lệ nào trong file.");
       return;
     }
-    const setName = name.trim() || file.name.replace(/\.(csv|txt)$/i, "");
-    addSet(setName, exercises);
+    const newName = name.trim() || file.name.replace(/\.(csv|txt)$/i, "");
+    addSet(newName, exercises);
     setSets(loadSets());
     setName("");
-    setMessage(`Đã thêm bộ "${setName}" với ${exercises.length} bài.`);
+    setMessage(`Đã thêm bộ "${newName}" với ${exercises.length} bài.`);
     if (inputRef.current) inputRef.current.value = "";
   };
 
