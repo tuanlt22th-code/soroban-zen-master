@@ -233,8 +233,9 @@
 .soroban-rod {
   position: absolute;
   left: 50%;
-  top: 0;
-  bottom: 0;
+  top: calc(-1 * var(--bead-h) * 0.35);
+  bottom: calc(-1 * var(--bead-h) * 0.35);
+
   width: clamp(4px, 1.05vw, 9px);
   transform: translateX(-50%);
   background: linear-gradient(90deg, var(--rod-dark), var(--rod) 40%, var(--rod-dark));
