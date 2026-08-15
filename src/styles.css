@@ -205,7 +205,8 @@
 .soroban-frame {
   --frame-thick: clamp(7px, 1.8cqi, 14px);
   --bead-w: max(20px, min(52px, calc((100cqi - 2 * var(--frame-thick) - 4px) / 14.5)));
-  --bead-h: calc(var(--bead-w) * 0.5);
+  --bead-h: calc(var(--bead-w) * 0.44);
+
   --col-gap: calc(var(--bead-w) * 0.28);
   margin: 0 auto;
   width: fit-content;
@@ -224,7 +225,7 @@
   gap: var(--col-gap);
   justify-content: center;
   background: var(--board);
-  padding: calc(var(--bead-h) * 0.35) calc(var(--bead-w) * 0.35);
+  padding: 0 calc(var(--bead-w) * 0.35);
 }
 
 .soroban-column {
@@ -236,12 +237,12 @@
 /* Thanh trục xuyên qua cả hai tầng */
 .soroban-rod {
   position: absolute;
-  left: 50%;
-  top: calc(-1 * var(--bead-h) * 0.35);
-  bottom: calc(-1 * var(--bead-h) * 0.35);
-
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: 0 auto;
   width: clamp(4px, 1.05vw, 9px);
-  transform: translateX(-50%);
   background: linear-gradient(90deg, var(--rod-dark), var(--rod) 40%, var(--rod-dark));
 }
 
@@ -260,10 +261,10 @@
   position: relative;
   z-index: 2;
   height: clamp(9px, 2.6vw, 18px);
-  margin: calc(var(--bead-h) * 0.34) calc(-1 * var(--bead-w) * 0.35);
+  margin: 0 calc(-1 * var(--bead-w) * 0.35);
   background: var(--frame);
-  box-shadow: 0 0 0 999px transparent;
 }
+
 
 .soroban-bead {
   position: absolute;
