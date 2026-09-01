@@ -28,8 +28,8 @@ const MODES = [
     icon: Grid3x3,
   },
   {
-    to: "/ao-dat-so" as const,
-    title: "ẢO ĐẶT SỐ",
+    to: "/ao-tinh" as const,
+    title: "ẢO TÍNH",
     desc: "Nhìn số trong thời gian rất ngắn rồi ghi nhớ và biểu diễn lại.",
     icon: Brain,
   },
