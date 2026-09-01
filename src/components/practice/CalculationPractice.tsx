@@ -44,6 +44,7 @@ export function CalculationPractice() {
   }, []);
 
   const activeSet = sets.find((s) => s.id === setId) ?? null;
+  const activeBank = BUILTIN_BANKS.find((b) => b.id === bankId) ?? BUILTIN_BANKS[0]!;
   const matching = useMemo(
     () => (activeSet ? filterExercises(activeSet.exercises, filter) : []),
     [activeSet, filter],
@@ -52,16 +53,22 @@ export function CalculationPractice() {
   const current = queue[index];
 
   const start = () => {
-    if (!activeSet) {
-      setError("Bạn chưa chọn bộ bài tập.");
-      return;
-    }
-    if (matching.length === 0) {
-      setError("Không có bài nào phù hợp với bộ lọc.");
-      return;
+    let selected: Exercise[];
+    if (source === "builtin") {
+      selected = pickRandom(activeBank, count);
+    } else {
+      if (!activeSet) {
+        setError("Bạn chưa chọn bộ bài tập.");
+        return;
+      }
+      if (matching.length === 0) {
+        setError("Không có bài nào phù hợp với bộ lọc.");
+        return;
+      }
+      selected = matching;
     }
     setError(null);
-    setQueue(matching);
+    setQueue(selected);
     setIndex(0);
     setTimes([]);
     setCorrectCount(0);
