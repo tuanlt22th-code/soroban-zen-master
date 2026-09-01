@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Brain, Calculator, Grid3x3, Library } from "lucide-react";
+import { Brain, Calculator, Grid3x3, Library, Zap } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -32,6 +32,12 @@ const MODES = [
     title: "ẢO TÍNH",
     desc: "Nhìn số trong thời gian rất ngắn rồi ghi nhớ và biểu diễn lại.",
     icon: Brain,
+  },
+  {
+    to: "/flashcard" as const,
+    title: "FLASHCARD",
+    desc: "Hạt hiện chớp nhoáng trên bàn tính, đọc số và nhập kết quả.",
+    icon: Zap,
   },
   {
     to: "/tinh-toan" as const,

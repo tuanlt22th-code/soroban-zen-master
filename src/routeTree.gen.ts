@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AoTinhRouteImport } from './routes/ao-tinh'
 import { Route as BieuDienSoRouteImport } from './routes/bieu-dien-so'
 import { Route as BoBaiTapRouteImport } from './routes/bo-bai-tap'
+import { Route as FlashcardRouteImport } from './routes/flashcard'
 import { Route as TinhToanRouteImport } from './routes/tinh-toan'
 
 const IndexRoute = IndexRouteImport.update({
@@ -35,6 +36,11 @@ const BoBaiTapRoute = BoBaiTapRouteImport.update({
   path: '/bo-bai-tap',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FlashcardRoute = FlashcardRouteImport.update({
+  id: '/flashcard',
+  path: '/flashcard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TinhToanRoute = TinhToanRouteImport.update({
   id: '/tinh-toan',
   path: '/tinh-toan',
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/ao-tinh': typeof AoTinhRoute
   '/bieu-dien-so': typeof BieuDienSoRoute
   '/bo-bai-tap': typeof BoBaiTapRoute
+  '/flashcard': typeof FlashcardRoute
   '/tinh-toan': typeof TinhToanRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/ao-tinh': typeof AoTinhRoute
   '/bieu-dien-so': typeof BieuDienSoRoute
   '/bo-bai-tap': typeof BoBaiTapRoute
+  '/flashcard': typeof FlashcardRoute
   '/tinh-toan': typeof TinhToanRoute
 }
 export interface FileRoutesById {
@@ -61,19 +69,33 @@ export interface FileRoutesById {
   '/ao-tinh': typeof AoTinhRoute
   '/bieu-dien-so': typeof BieuDienSoRoute
   '/bo-bai-tap': typeof BoBaiTapRoute
+  '/flashcard': typeof FlashcardRoute
   '/tinh-toan': typeof TinhToanRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/ao-tinh' | '/bieu-dien-so' | '/bo-bai-tap' | '/tinh-toan'
+  fullPaths:
+    | '/'
+    | '/ao-tinh'
+    | '/bieu-dien-so'
+    | '/bo-bai-tap'
+    | '/flashcard'
+    | '/tinh-toan'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/ao-tinh' | '/bieu-dien-so' | '/bo-bai-tap' | '/tinh-toan'
+  to:
+    | '/'
+    | '/ao-tinh'
+    | '/bieu-dien-so'
+    | '/bo-bai-tap'
+    | '/flashcard'
+    | '/tinh-toan'
   id:
     | '__root__'
     | '/'
     | '/ao-tinh'
     | '/bieu-dien-so'
     | '/bo-bai-tap'
+    | '/flashcard'
     | '/tinh-toan'
   fileRoutesById: FileRoutesById
 }
@@ -82,6 +104,7 @@ export interface RootRouteChildren {
   AoTinhRoute: typeof AoTinhRoute
   BieuDienSoRoute: typeof BieuDienSoRoute
   BoBaiTapRoute: typeof BoBaiTapRoute
+  FlashcardRoute: typeof FlashcardRoute
   TinhToanRoute: typeof TinhToanRoute
 }
 
@@ -115,6 +138,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BoBaiTapRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/flashcard': {
+      id: '/flashcard'
+      path: '/flashcard'
+      fullPath: '/flashcard'
+      preLoaderRoute: typeof FlashcardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tinh-toan': {
       id: '/tinh-toan'
       path: '/tinh-toan'
@@ -130,6 +160,7 @@ const rootRouteChildren: RootRouteChildren = {
   AoTinhRoute: AoTinhRoute,
   BieuDienSoRoute: BieuDienSoRoute,
   BoBaiTapRoute: BoBaiTapRoute,
+  FlashcardRoute: FlashcardRoute,
   TinhToanRoute: TinhToanRoute,
 }
 export const routeTree = rootRouteImport
