@@ -5,12 +5,15 @@ import { PracticeTimer } from "./PracticeTimer";
 import { SelectField } from "./PracticeControls";
 import { SessionSummary } from "./SessionSummary";
 import { FeedbackBanner } from "./FeedbackBanner";
+import { VerticalProblem } from "./VerticalProblem";
 import { emptySoroban, sorobanToNumber, type SorobanState } from "@/lib/soroban";
 import { loadSets, type ExerciseSet } from "@/lib/exercises/exerciseStore";
 import { filterExercises, type ExerciseFilter } from "@/lib/exercises/exerciseFilter";
+import { BUILTIN_BANKS, QUESTION_COUNTS, pickRandom } from "@/lib/exercises/builtinSets";
 import type { Exercise } from "@/lib/exercises/exerciseParser";
 
 type Phase = "idle" | "playing" | "checked" | "done";
+type Source = "builtin" | "custom";
 
 export function CalculationPractice() {
   const [sets, setSets] = useState<ExerciseSet[]>([]);
