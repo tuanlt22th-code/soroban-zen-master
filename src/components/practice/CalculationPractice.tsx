@@ -115,7 +115,61 @@ export function CalculationPractice() {
     <div className="space-y-4">
       {phase === "idle" ? (
         <section className="space-y-3 rounded-xl border border-border bg-card p-3">
-          {sets.length === 0 ? (
+          <div className="grid grid-cols-2 gap-2">
+            {(
+              [
+                { id: "builtin", label: "Bộ soạn sẵn" },
+                { id: "custom", label: "Bộ của tôi" },
+              ] as { id: Source; label: string }[]
+            ).map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => {
+                  setSource(tab.id);
+                  setError(null);
+                }}
+                className={`h-11 rounded-lg border text-sm font-bold transition-colors ${
+                  source === tab.id
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border bg-card text-foreground hover:bg-accent"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {source === "builtin" ? (
+            <>
+              <SelectField
+                label="Dạng bài (chữ số × số hàng)"
+                value={bankId}
+                onChange={(e) => setBankId(e.target.value)}
+              >
+                {BUILTIN_BANKS.map((b) => (
+                  <option key={b.id} value={b.id}>
+                    {b.id} — {b.label}
+                  </option>
+                ))}
+              </SelectField>
+              <SelectField
+                label="Số câu mỗi lượt"
+                value={String(count)}
+                onChange={(e) => setCount(Number(e.target.value))}
+              >
+                {QUESTION_COUNTS.map((c) => (
+                  <option key={c} value={c}>
+                    {c} câu
+                  </option>
+                ))}
+              </SelectField>
+              <p className="text-xs text-muted-foreground">
+                Lấy ngẫu nhiên {count} bài trong kho {activeBank.problems.length} bài của dạng{" "}
+                {activeBank.id}.
+              </p>
+            </>
+          ) : sets.length === 0 ? (
             <p className="text-sm text-muted-foreground">
               Chưa có bộ bài tập nào.{" "}
               <Link to="/bo-bai-tap" className="font-semibold text-primary underline">
