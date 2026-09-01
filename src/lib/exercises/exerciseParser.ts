@@ -1,6 +1,8 @@
 export interface Exercise {
   id: string;
   raw: string;
+  /** Các số hạng có dấu, dùng để hiển thị theo cột dọc */
+  terms?: number[];
   /** Số chữ số lớn nhất trong các toán hạng */
   digits: number;
   /** Số phép tính (số dấu + / -) */
