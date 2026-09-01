@@ -5,14 +5,20 @@ import { PracticeTimer } from "./PracticeTimer";
 import { SelectField } from "./PracticeControls";
 import { SessionSummary } from "./SessionSummary";
 import { FeedbackBanner } from "./FeedbackBanner";
+import { VerticalProblem } from "./VerticalProblem";
 import { emptySoroban, sorobanToNumber, type SorobanState } from "@/lib/soroban";
 import { loadSets, type ExerciseSet } from "@/lib/exercises/exerciseStore";
 import { filterExercises, type ExerciseFilter } from "@/lib/exercises/exerciseFilter";
+import { BUILTIN_BANKS, QUESTION_COUNTS, pickRandom } from "@/lib/exercises/builtinSets";
 import type { Exercise } from "@/lib/exercises/exerciseParser";
 
 type Phase = "idle" | "playing" | "checked" | "done";
+type Source = "builtin" | "custom";
 
 export function CalculationPractice() {
+  const [source, setSource] = useState<Source>("builtin");
+  const [bankId, setBankId] = useState(BUILTIN_BANKS[0]!.id);
+  const [count, setCount] = useState<number>(10);
   const [sets, setSets] = useState<ExerciseSet[]>([]);
   const [setId, setSetId] = useState("");
   const [filter, setFilter] = useState<ExerciseFilter>({
@@ -38,6 +44,7 @@ export function CalculationPractice() {
   }, []);
 
   const activeSet = sets.find((s) => s.id === setId) ?? null;
+  const activeBank = BUILTIN_BANKS.find((b) => b.id === bankId) ?? BUILTIN_BANKS[0]!;
   const matching = useMemo(
     () => (activeSet ? filterExercises(activeSet.exercises, filter) : []),
     [activeSet, filter],
@@ -46,16 +53,22 @@ export function CalculationPractice() {
   const current = queue[index];
 
   const start = () => {
-    if (!activeSet) {
-      setError("Bạn chưa chọn bộ bài tập.");
-      return;
-    }
-    if (matching.length === 0) {
-      setError("Không có bài nào phù hợp với bộ lọc.");
-      return;
+    let selected: Exercise[];
+    if (source === "builtin") {
+      selected = pickRandom(activeBank, count);
+    } else {
+      if (!activeSet) {
+        setError("Bạn chưa chọn bộ bài tập.");
+        return;
+      }
+      if (matching.length === 0) {
+        setError("Không có bài nào phù hợp với bộ lọc.");
+        return;
+      }
+      selected = matching;
     }
     setError(null);
-    setQueue(matching);
+    setQueue(selected);
     setIndex(0);
     setTimes([]);
     setCorrectCount(0);
@@ -102,7 +115,61 @@ export function CalculationPractice() {
     <div className="space-y-4">
       {phase === "idle" ? (
         <section className="space-y-3 rounded-xl border border-border bg-card p-3">
-          {sets.length === 0 ? (
+          <div className="grid grid-cols-2 gap-2">
+            {(
+              [
+                { id: "builtin", label: "Bộ soạn sẵn" },
+                { id: "custom", label: "Bộ của tôi" },
+              ] as { id: Source; label: string }[]
+            ).map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => {
+                  setSource(tab.id);
+                  setError(null);
+                }}
+                className={`h-11 rounded-lg border text-sm font-bold transition-colors ${
+                  source === tab.id
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border bg-card text-foreground hover:bg-accent"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {source === "builtin" ? (
+            <>
+              <SelectField
+                label="Dạng bài (chữ số × số hàng)"
+                value={bankId}
+                onChange={(e) => setBankId(e.target.value)}
+              >
+                {BUILTIN_BANKS.map((b) => (
+                  <option key={b.id} value={b.id}>
+                    {b.id} — {b.label}
+                  </option>
+                ))}
+              </SelectField>
+              <SelectField
+                label="Số câu mỗi lượt"
+                value={String(count)}
+                onChange={(e) => setCount(Number(e.target.value))}
+              >
+                {QUESTION_COUNTS.map((c) => (
+                  <option key={c} value={c}>
+                    {c} câu
+                  </option>
+                ))}
+              </SelectField>
+              <p className="text-xs text-muted-foreground">
+                Lấy ngẫu nhiên {count} bài trong kho {activeBank.problems.length} bài của dạng{" "}
+                {activeBank.id}.
+              </p>
+            </>
+          ) : sets.length === 0 ? (
             <p className="text-sm text-muted-foreground">
               Chưa có bộ bài tập nào.{" "}
               <Link to="/bo-bai-tap" className="font-semibold text-primary underline">
@@ -187,9 +254,19 @@ export function CalculationPractice() {
           </span>
           <PracticeTimer startedAt={startedAt} stoppedMs={stoppedMs} />
         </div>
-        <p className="mt-3 break-words font-mono text-3xl font-black tracking-tight text-foreground sm:text-5xl">
-          {current && phase !== "idle" ? current.raw : "—"}
-        </p>
+        <div className="mt-3">
+          {current && phase !== "idle" ? (
+            current.terms && current.terms.length > 0 ? (
+              <VerticalProblem terms={current.terms} />
+            ) : (
+              <p className="break-words font-mono text-3xl font-black tracking-tight text-foreground sm:text-5xl">
+                {current.raw}
+              </p>
+            )
+          ) : (
+            <p className="font-mono text-3xl font-black text-muted-foreground">—</p>
+          )}
+        </div>
       </section>
 
       <Soroban state={board} onChange={setBoard} disabled={phase !== "playing"} />
