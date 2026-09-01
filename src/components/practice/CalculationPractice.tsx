@@ -254,9 +254,19 @@ export function CalculationPractice() {
           </span>
           <PracticeTimer startedAt={startedAt} stoppedMs={stoppedMs} />
         </div>
-        <p className="mt-3 break-words font-mono text-3xl font-black tracking-tight text-foreground sm:text-5xl">
-          {current && phase !== "idle" ? current.raw : "—"}
-        </p>
+        <div className="mt-3">
+          {current && phase !== "idle" ? (
+            current.terms && current.terms.length > 0 ? (
+              <VerticalProblem terms={current.terms} />
+            ) : (
+              <p className="break-words font-mono text-3xl font-black tracking-tight text-foreground sm:text-5xl">
+                {current.raw}
+              </p>
+            )
+          ) : (
+            <p className="font-mono text-3xl font-black text-muted-foreground">—</p>
+          )}
+        </div>
       </section>
 
       <Soroban state={board} onChange={setBoard} disabled={phase !== "playing"} />
