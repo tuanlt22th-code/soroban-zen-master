@@ -66,6 +66,9 @@ export function parseExpression(raw: string): { ok: true; exercise: Omit<Exercis
     ok: true,
     exercise: {
       raw: text.replace(/\s+/g, " "),
+      terms: operands.map((n, i) =>
+        i === 0 ? n : operators[i - 1] === "-" ? -n : n,
+      ),
       digits,
       opsCount: operators.length,
       type: hasAdd && hasSub ? "mixed" : hasSub ? "sub" : "add",
