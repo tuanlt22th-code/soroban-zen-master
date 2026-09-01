@@ -29,7 +29,7 @@ const MODES = [
   },
   {
     to: "/ao-tinh" as const,
-    title: "ẢO TÍNH",
+    title: "ẢO ĐẶT SỐ",
     desc: "Nhìn số trong thời gian rất ngắn rồi ghi nhớ và biểu diễn lại.",
     icon: Brain,
   },
