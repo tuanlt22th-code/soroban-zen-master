@@ -16,6 +16,9 @@ type Phase = "idle" | "playing" | "checked" | "done";
 type Source = "builtin" | "custom";
 
 export function CalculationPractice() {
+  const [source, setSource] = useState<Source>("builtin");
+  const [bankId, setBankId] = useState(BUILTIN_BANKS[0]!.id);
+  const [count, setCount] = useState<number>(10);
   const [sets, setSets] = useState<ExerciseSet[]>([]);
   const [setId, setSetId] = useState("");
   const [filter, setFilter] = useState<ExerciseFilter>({
