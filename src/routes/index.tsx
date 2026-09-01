@@ -28,8 +28,8 @@ const MODES = [
     icon: Grid3x3,
   },
   {
-    to: "/ao-tinh" as const,
-    title: "ẢO TÍNH",
+    to: "/ao-dat-so" as const,
+    title: "ẢO ĐẶT SỐ",
     desc: "Nhìn số trong thời gian rất ngắn rồi ghi nhớ và biểu diễn lại.",
     icon: Brain,
   },
@@ -69,9 +69,7 @@ function Home() {
               <mode.icon className="h-6 w-6" aria-hidden="true" />
             </span>
             <span className="min-w-0">
-              <span className="block text-lg font-black tracking-tight text-foreground">
-                {mode.title}
-              </span>
+              <span className="block text-lg font-black tracking-tight text-foreground">{mode.title}</span>
               <span className="block text-sm text-muted-foreground">{mode.desc}</span>
             </span>
           </Link>
