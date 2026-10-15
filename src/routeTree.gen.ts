@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AoDatSorobanRouteImport } from './routes/ao-dat-soroban'
 import { Route as AoTinhRouteImport } from './routes/ao-tinh'
 import { Route as BieuDienSoRouteImport } from './routes/bieu-dien-so'
 import { Route as BoBaiTapRouteImport } from './routes/bo-bai-tap'
@@ -19,6 +20,11 @@ import { Route as TinhToanRouteImport } from './routes/tinh-toan'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AoDatSorobanRoute = AoDatSorobanRouteImport.update({
+  id: '/ao-dat-soroban',
+  path: '/ao-dat-soroban',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AoTinhRoute = AoTinhRouteImport.update({
@@ -49,6 +55,7 @@ const TinhToanRoute = TinhToanRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ao-dat-soroban': typeof AoDatSorobanRoute
   '/ao-tinh': typeof AoTinhRoute
   '/bieu-dien-so': typeof BieuDienSoRoute
   '/bo-bai-tap': typeof BoBaiTapRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ao-dat-soroban': typeof AoDatSorobanRoute
   '/ao-tinh': typeof AoTinhRoute
   '/bieu-dien-so': typeof BieuDienSoRoute
   '/bo-bai-tap': typeof BoBaiTapRoute
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ao-dat-soroban': typeof AoDatSorobanRoute
   '/ao-tinh': typeof AoTinhRoute
   '/bieu-dien-so': typeof BieuDienSoRoute
   '/bo-bai-tap': typeof BoBaiTapRoute
@@ -76,6 +85,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/ao-dat-soroban'
     | '/ao-tinh'
     | '/bieu-dien-so'
     | '/bo-bai-tap'
@@ -84,6 +94,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/ao-dat-soroban'
     | '/ao-tinh'
     | '/bieu-dien-so'
     | '/bo-bai-tap'
@@ -92,6 +103,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/ao-dat-soroban'
     | '/ao-tinh'
     | '/bieu-dien-so'
     | '/bo-bai-tap'
@@ -101,6 +113,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AoDatSorobanRoute: typeof AoDatSorobanRoute
   AoTinhRoute: typeof AoTinhRoute
   BieuDienSoRoute: typeof BieuDienSoRoute
   BoBaiTapRoute: typeof BoBaiTapRoute
@@ -115,6 +128,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ao-dat-soroban': {
+      id: '/ao-dat-soroban'
+      path: '/ao-dat-soroban'
+      fullPath: '/ao-dat-soroban'
+      preLoaderRoute: typeof AoDatSorobanRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ao-tinh': {
@@ -157,6 +177,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AoDatSorobanRoute: AoDatSorobanRoute,
   AoTinhRoute: AoTinhRoute,
   BieuDienSoRoute: BieuDienSoRoute,
   BoBaiTapRoute: BoBaiTapRoute,
